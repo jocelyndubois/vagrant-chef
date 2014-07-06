@@ -3,3 +3,7 @@
 /vendor/
 /.vagrant/
 /bin/
+*id_rsa
+*id_rsa.pub
+*config.yml
+/chef/site-cookbooks/mysqldumps/files/default/*

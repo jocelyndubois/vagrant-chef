@@ -1,0 +1,41 @@
+chef_version: 11.12.8 # Can be set to latest
+
+apache:
+    default_site_enabled: true
+
+mysql:
+    server_root_password: "root"
+    server_debian_password: "root"
+    server_repl_password: "root"
+    allow_remote_root: true
+
+mysql_dumps:
+    - {db_name: "test_project1", dump_file: "test_project1.sql"}
+    - {db_name: "test_project1", dump_file: "test_project2.sql"}
+
+phpini:
+    date.timezone: "Europe/Paris"
+    display_errors: "On"
+    error_reporting: "E_ALL ^ E_DEPRECATED"
+    display_startup_errors: "On"
+    version: "5.5"
+
+xdebug:
+    remote_enable: 1,
+    remote_connect_back: 1
+
+git:
+    username: "your_username"
+    email: "your_email@yourdomain.com"
+
+global_symfony:
+    - { version: "1.0", dist:  "symfony-1.0.22" }
+    - { version: "1.2", dist:  "symfony-1.2.12" }
+    - { version: "1.4", dist:  "symfony-1.4.20" }
+
+vhosts:
+    examplesite:
+        server_name: "dev.yourdomain.com"
+        server_aliases: ["dev.yourdomain.com"]
+        docroot: "/var/www/yourdomainrepo/web"
+        directory_index: "app_dev.php"

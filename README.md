@@ -55,6 +55,16 @@ Sets up a LAMP dev box running `Ubuntu 12.04 LTS`.
 
 - [Composer](https://getcomposer.org/)
 
+##Configuration
+
+- Copy config.yml.dist to config.yml and override the default settings.
+- Copy your ssh keys:
+    ```bash
+    cp -R ~/.ssh change_this_path/lamp-vagrant-chef-solo/chef/site-cookbooks/sshkeys/files/default/ssh
+    ```
+- Copy your mysql dumps in lamp-vagrant-chef-solo/chef/site-cookbooks/mysqldumps/files/default/
+- You can edit the .bashrc file: lamp-vagrant-chef-solo/chef/site-cookbooks/bashconfig/files/default/.bashrc
+
 ##Usage
 
 Install required Ruby Gems:

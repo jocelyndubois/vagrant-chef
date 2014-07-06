@@ -1,9 +1,24 @@
+# Load yaml settings
+require 'yaml'
+
+unless File.exists? ("config.yml")
+    raise 'You must define a config.yml file, just copy config.yml.dist and change the values as you want'
+end
+
+settings = YAML.load_file 'config.yml'
+
+
 USE_PRECONFIGURED_LAMP_BOX = false
 
 Vagrant.configure("2") do |config|
     # Vagrant plugins config
     config.cache.scope = :box
-    config.omnibus.chef_version = :latest
+
+    config.omnibus.chef_version = settings['chef_version']
+    if settings['chef_version'] == 'latest'
+        config.omnibus.chef_version = :latest
+    end
+
     config.librarian_chef.cheffile_dir = "chef"
 
     # Box
@@ -19,12 +34,13 @@ Vagrant.configure("2") do |config|
     config.vm.network :private_network, ip: "10.10.10.2"
 
     # Synced folders
-    config.vm.synced_folder "./", "/var/www", type: "nfs"
+    config.vm.synced_folder "/var/www/html", "/var/www", type: "nfs"
 
     # Provision via chef solo
     config.vm.provision :chef_solo do |chef|
         chef.cookbooks_path = [
-            "chef/cookbooks"
+            "chef/cookbooks",
+            "chef/site-cookbooks"
         ]
 
         chef.add_recipe "apt"
@@ -35,6 +51,9 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "apache2::mod_alias"
         chef.add_recipe "apache2::mod_php5"
         chef.add_recipe "mysql::server"
+        chef.add_recipe "mysql-chef_gem"
+        chef.add_recipe "database::mysql"
+        # chef.add_recipe "database::postgresql"
         chef.add_recipe "php"
         chef.add_recipe "php::module_apc"
         chef.add_recipe "php::module_curl"
@@ -45,25 +64,45 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "xdebug"
         chef.add_recipe "composer"
 
+        # Projects recipes
+        chef.add_recipe "gitconfig"
+        chef.add_recipe "vhosts"
+        chef.add_recipe "symfony"
+        chef.add_recipe "sshkeys"
+        chef.add_recipe "bashconfig"
+        chef.add_recipe "mysqldumps"
+        chef.add_recipe "funstuff"
+
         chef.json = {
             :apache => {
-                :default_site_enabled => true
+                :default_site_enabled => settings['apache']['default_site_enabled']
             },
             :mysql => {
-                :server_root_password => "root",
-                :server_debian_password => "root",
-                :server_repl_password => "root",
-                :allow_remote_root => true
+                :server_root_password => settings['mysql']['server_root_password'],
+                :server_debian_password => settings['mysql']['server_debian_password'],
+                :server_repl_password => settings['mysql']['server_repl_password'],
+                :allow_remote_root => settings['mysql']['allow_remote_root']
             },
+            :mysql_dumps => settings['mysql_dumps'],
             :php => {
                 :ini_settings => {
-                    "date.timezone" => "Europe/London"
+                    "date.timezone" => settings['phpini']['date.timezone'],
+                    "display_errors" => settings['phpini']['display_errors'],
+                    "error_reporting" => settings['phpini']['error_reporting'],
+                    "display_startup_errors" => settings['phpini']['display_startup_errors'],
+                    "version" => settings['phpini']['version']
                 }
             },
             :xdebug => {
-                :remote_enable => 1,
-                :remote_connect_back => 1
-            }
+                :remote_enable => settings['xdebug']['remote_enable'],
+                :remote_connect_back => settings['xdebug']['remote_connect_back']
+            },
+            :git => {
+                :username => settings['git']['username'],
+                :email => settings['git']['email'],
+            },
+            :vhosts => settings['vhosts'],
+            :global_symfony => settings['global_symfony']
         }
     end
 end
