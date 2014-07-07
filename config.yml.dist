@@ -1,5 +1,8 @@
 chef_version: 11.12.8 # Can be set to latest
 
+ip: "10.10.10.2"
+memory: 3072
+
 apache:
     default_site_enabled: true
 

@@ -30,8 +30,12 @@ Vagrant.configure("2") do |config|
         config.vm.box_url = "http://files.vagrantup.com/precise64.box"
     end
 
+    config.vm.provider "virtualbox" do |v|
+        v.memory = settings['memory']
+    end
+
     # Networking
-    config.vm.network :private_network, ip: "10.10.10.2"
+    config.vm.network :private_network, ip: settings['ip']
 
     # Synced folders
     config.vm.synced_folder "/var/www/html", "/var/www", type: "nfs"

@@ -6,6 +6,7 @@ directory "/home/share/symfony/" do
     group 'www-data'
     mode "0777"
     action :create
+    recursive true
 end
 
 # Download and install symfony
