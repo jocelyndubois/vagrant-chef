@@ -12,7 +12,6 @@ end
 # Download and install symfony
 node['global_symfony'].each do |datas|
     bash "Download symfony 1.x and copy" do
-        subscribes :create, "directory[/home/share/symfony/]"
         user "root"
         cwd "/home/share/symfony"
         code <<-EOH
@@ -21,5 +20,6 @@ node['global_symfony'].each do |datas|
           mv #{datas['dist']} #{datas['version']}
           rm #{datas['dist']}.tgz
         EOH
+        action :run
     end
 end

@@ -7,5 +7,4 @@ bash "fun stuff" do
         make
         make install
     EOH
-    subscribes :create, "remote_directory[/home/vagrant/.ssh/]"
 end

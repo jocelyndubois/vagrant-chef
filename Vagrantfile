@@ -5,6 +5,10 @@ unless File.exists? ("config.yml")
     raise 'You must define a config.yml file, just copy config.yml.dist and change the values as you want'
 end
 
+unless File.directory? ("chef/site-cookbooks/sshkeys/files/default/ssh")
+    raise 'You must copy your ssh keys into chef/site-cookbooks/sshkeys/files/default/ssh'
+end
+
 settings = YAML.load_file 'config.yml'
 
 
