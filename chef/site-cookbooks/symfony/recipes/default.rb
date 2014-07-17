@@ -21,5 +21,6 @@ node['global_symfony'].each do |datas|
           rm #{datas['dist']}.tgz
         EOH
         action :run
+        subscribes :create, "/home/share/symfony/"
     end
 end

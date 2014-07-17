@@ -70,6 +70,7 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "php::module_mysql"
         chef.add_recipe "php::apache2"
         chef.add_recipe "xdebug"
+        chef.add_recipe "imagemagick"
         chef.add_recipe "composer"
 
         # Projects recipes

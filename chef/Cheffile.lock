@@ -5,9 +5,9 @@ SITE
       iptables (>= 0.0.0)
       logrotate (>= 0.0.0)
       pacman (>= 0.0.0)
-    apt (2.3.10)
-    aws (2.2.2)
-    build-essential (2.0.2)
+    apt (2.4.0)
+    aws (2.3.0)
+    build-essential (2.0.4)
     chef-sugar (2.0.0)
     chef_handler (1.1.6)
     database (2.2.0)
@@ -24,9 +24,11 @@ SITE
       windows (>= 0.0.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
+    imagemagick (0.2.3)
     iptables (0.13.2)
-    logrotate (1.5.0)
-    mysql (5.2.6)
+    logrotate (1.6.0)
+    mysql (5.3.6)
+      yum-mysql-community (>= 0.0.0)
     mysql-chef_gem (0.0.2)
       build-essential (>= 0.0.0)
       mysql (>= 0.0.0)
@@ -42,16 +44,17 @@ SITE
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
     vim (1.1.2)
-    windows (1.31.0)
+    windows (1.32.3)
       chef_handler (>= 0.0.0)
     xfs (1.1.0)
-    xml (1.2.4)
+    xml (1.2.6)
       build-essential (>= 0.0.0)
-    yum (3.2.0)
+      chef-sugar (>= 0.0.0)
+    yum (3.2.2)
     yum-epel (0.3.6)
       yum (~> 3.0)
-    yumrepo (2.0.0)
-      yum (>= 2.3.0)
+    yum-mysql-community (0.1.8)
+      yum (>= 3.0.0)
 
 GIT
   remote: https://github.com/escapestudios-cookbooks/xdebug
@@ -64,14 +67,13 @@ GIT
 GIT
   remote: https://github.com/priestjim/chef-php
   ref: master
-  sha: 74cde12df5699ad7454b85ea77d9662d742660cb
+  sha: e2137ad4a3633c7a344975304a9c1153c380ef73
   specs:
-    php (1.2.0)
+    php (1.2.3)
       apt (>= 0.0.0)
       build-essential (>= 0.0.0)
       xml (>= 0.0.0)
       yum (>= 0.0.0)
-      yumrepo (>= 0.0.0)
 
 GIT
   remote: https://github.com/zircote/chef-composer
@@ -86,6 +88,7 @@ DEPENDENCIES
   composer (>= 0)
   database (>= 0)
   git (>= 0)
+  imagemagick (~> 0.2.3)
   mysql (>= 0)
   php (>= 0)
   vim (>= 0)
