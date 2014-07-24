@@ -12,16 +12,22 @@ mysql:
     server_repl_password: "root"
     allow_remote_root: true
 
+postgres:
+    version: "9.3"
+    user: "postgres"
+    password: "postgres"
+    users: []
+
 mysql_dumps:
     - {db_name: "test_project1", dump_file: "test_project1.sql"}
     - {db_name: "test_project1", dump_file: "test_project2.sql"}
 
 phpini:
+    version: "5.5"
     date.timezone: "Europe/Paris"
     display_errors: "On"
     error_reporting: "E_ALL ^ E_DEPRECATED"
     display_startup_errors: "On"
-    version: "5.5"
 
 xdebug:
     remote_enable: 1,

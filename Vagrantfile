@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
     config.vm.network :private_network, ip: settings['ip']
 
     # Synced folders
-    config.vm.synced_folder "/var/www/html", "/var/www", type: "nfs"
+    config.vm.synced_folder "/var/www/html", "/var/www", type: "nfs", :nfs => { :mount_options => ["dmode=777","fmode=777"] }
 
     # Provision via chef solo
     config.vm.provision :chef_solo do |chef|
@@ -59,9 +59,10 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "apache2::mod_alias"
         chef.add_recipe "apache2::mod_php5"
         chef.add_recipe "mysql::server"
+        chef.add_recipe "postgresql::server"
         chef.add_recipe "mysql-chef_gem"
         chef.add_recipe "database::mysql"
-        # chef.add_recipe "database::postgresql"
+        chef.add_recipe "database::postgresql"
         chef.add_recipe "php"
         chef.add_recipe "php::module_apc"
         chef.add_recipe "php::module_curl"
@@ -81,6 +82,8 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "bashconfig"
         chef.add_recipe "mysqldumps"
         chef.add_recipe "funstuff"
+        chef.add_recipe "pgsqlphpdrivers"
+        chef.add_recipe "postgresqlconf"
 
         chef.json = {
             :apache => {
@@ -91,6 +94,15 @@ Vagrant.configure("2") do |config|
                 :server_debian_password => settings['mysql']['server_debian_password'],
                 :server_repl_password => settings['mysql']['server_repl_password'],
                 :allow_remote_root => settings['mysql']['allow_remote_root']
+            },
+            :postgresql => {
+                :version => settings['postgres']['version'],
+                :username => settings['postgres']['user'],
+                :enable_pgdg_apt => true,
+                :password => {
+                    "postgres" => settings['postgres']['password']
+                },
+                :users => settings['postgres']['users']
             },
             :mysql_dumps => settings['mysql_dumps'],
             :php => {
