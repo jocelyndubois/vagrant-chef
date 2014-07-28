@@ -6,6 +6,7 @@ cookbook "vim"
 cookbook "apache2"
 cookbook "mysql"
 cookbook "database"
+cookbook "mongodb"
 cookbook 'imagemagick', '~> 0.2.3'
 cookbook "php", :git => "https://github.com/priestjim/chef-php"
 cookbook "composer", :git => "https://github.com/zircote/chef-composer"

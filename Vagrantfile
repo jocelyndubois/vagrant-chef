@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
     config.vm.network :private_network, ip: settings['ip']
 
     # Synced folders
-    config.vm.synced_folder "/var/www/html", "/var/www", type: "nfs", :nfs => { :mount_options => ["dmode=777","fmode=777"] }
+    config.vm.synced_folder "/var/www/html", "/var/www", type: "nfs"
 
     # Provision via chef solo
     config.vm.provision :chef_solo do |chef|
@@ -63,6 +63,7 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "mysql-chef_gem"
         chef.add_recipe "database::mysql"
         chef.add_recipe "database::postgresql"
+        chef.add_recipe "mongodb"
         chef.add_recipe "php"
         chef.add_recipe "php::module_apc"
         chef.add_recipe "php::module_curl"
@@ -84,6 +85,7 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "funstuff"
         chef.add_recipe "pgsqlphpdrivers"
         chef.add_recipe "postgresqlconf"
+        chef.add_recipe "mongophpdriver"
 
         chef.json = {
             :apache => {

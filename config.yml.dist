@@ -18,6 +18,10 @@ postgres:
     password: "postgres"
     users: []
 
+mongodb:
+    version: "2.2.3"
+    php_driver_version: "1.5.0"
+
 mysql_dumps:
     - {db_name: "test_project1", dump_file: "test_project1.sql"}
     - {db_name: "test_project1", dump_file: "test_project2.sql"}
