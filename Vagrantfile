@@ -76,6 +76,7 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "composer"
 
         # Projects recipes
+        chef.add_recipe "sasl"
         chef.add_recipe "gitconfig"
         chef.add_recipe "vhosts"
         chef.add_recipe "symfony"
@@ -83,6 +84,7 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "bashconfig"
         chef.add_recipe "mysqldumps"
         chef.add_recipe "funstuff"
+        chef.add_recipe "sasl"
         chef.add_recipe "pgsqlphpdrivers"
         chef.add_recipe "postgresqlconf"
         chef.add_recipe "mongophpdriver"
