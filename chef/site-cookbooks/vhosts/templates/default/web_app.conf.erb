@@ -6,14 +6,14 @@
 
   <Directory <%= @params[:docroot] %>>
     Options <%= [@params[:directory_options] || "FollowSymLinks" ].flatten.join " " %>
-    AllowOverride <%= [@params[:allow_override] || "None" ].flatten.join " " %>
+    AllowOverride All
     Order allow,deny
     Allow from all
   </Directory>
 
   <Directory />
     Options FollowSymLinks
-    AllowOverride None
+    AllowOverride All
   </Directory>
 
   <Location /server-status>
@@ -23,6 +23,13 @@
     Deny from all
     Allow from 127.0.0.1
   </Location>
+
+  SetEnv APPLICATION_ENV "development"
+  SetEnv HTTP_SM_UNIVERSALID "ADMI1234"
+  SetEnv HTTP_FTUSERSN "Noria"
+  SetEnv HTTP_FTUSERGIVENNAME "Noria"
+  SetEnv HTTP_FTUSERTELEPHONENUMBER "0606060606"
+  SetEnv HTTP_FTUSERMAIL "noria@ausy-group.com"
 
   LogLevel info
   ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
